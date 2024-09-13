@@ -30,3 +30,8 @@ models:
       +materialized: view
     marts:
       +materialized: table
+      +persist_docs:
+        relation: true
+        columns: true
+      +tags:
+        - "lookml"
