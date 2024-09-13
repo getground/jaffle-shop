@@ -1,0 +1,30 @@
+dbt_list_marts() {
+    mkdir -p tmp
+    echo "List dbt models tagged with lookml to tmp/marts.txt"
+    dbt --quiet ls --select tag:lookml --output name --resource-type model | tee tmp/marts.txt
+}
+
+create_lookml() {
+    echo "Create LookML views"
+    if [ -d "tmp/lookml/" ]; then rm -Rf tmp/lookml/; fi
+    optician generate_lookml \
+	--db_type bigquery \
+        --project $DBT_PROJECT \
+        --dataset dbt_jaffle_shop \
+        --tables tmp/diff.txt \
+        --override-dataset-id @{dataset_primary} \
+        --output tmp/lookml/
+}
+
+commit_lookml() {
+    export branch_name=$(git symbolic-ref --short HEAD)
+    echo "Commit LookML views to Looker repo"
+    echo "Branch name: $branch_name"
+    optician push_to_looker \
+        --token $GH_TOKEN \
+        --repo getground/optician_demo \
+        --branch-name $branch_name \
+        --base-branch master \
+        --input-dir tmp/lookml/ \
+        --output-dir _base
+}

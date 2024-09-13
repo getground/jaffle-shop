@@ -1,24 +1,20 @@
-semantic_models:
+models:
   - name: locations
-    description: |
+    description: >
       Location dimension table. The grain of the table is one row per location.
-    model: ref('locations')
-    defaults:
-      agg_time_dimension: opened_at
-    entities:
-      - name: location
-        type: primary
-        expr: location_id
-    dimensions:
+    columns:
+      - name: location_id
+        data_type: string
+        description: Location ID
+
       - name: location_name
-        type: categorical
-      - name: opened_at
-        expr: opened_at
-        type: time
-        type_params:
-          time_granularity: day
-    measures:
-      - name: average_tax_rate
-        description: Average tax rate.
-        expr: tax_rate
-        agg: average
+        data_type: string
+        description: Location name
+
+      - name: tax_rate
+        data_type: float64
+        description: Tax rate for the location
+
+      - name: opened_date
+        data_type: timestamp
+        description: The date the location opened
