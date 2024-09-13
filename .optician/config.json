@@ -1,0 +1,38 @@
+{
+    "primary_key_columns": [
+        "id",
+        "pk",
+        "primary_key"
+    ],
+    "ignore_column_types": [
+        "GEOGRAPHY",
+        "ARRAY",
+        "JSON"
+    ],
+    "ignore_modes": [
+        "REPEATED"
+    ],
+    "timeframes": [
+        "raw",
+        "time",
+        "date",
+        "week",
+        "month",
+        "month_name",
+        "month_num",
+        "quarter",
+        "quarter_of_year",
+        "year"
+    ],
+    "hide_all_fields": false,
+    "capitalize_ids": true,
+    "time_suffixes": [
+        "_at",
+        "_date",
+        "_time",
+        "_ts",
+        "_timestamp",
+        "_datetime"
+    ],
+    "order_by": "alpha"
+}
